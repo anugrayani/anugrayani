@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anugrayani Bustamin</title>
+<meta name="description" content="Research dashboard of Anugrayani Bustamin, ST., MT — Informatics, Universitas Hasanuddin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ef; --surface:#ffffff; --ink:#1d2321; --muted:#5f6a66; --line:#e3dfd6;
+  --accent:#0f6b5c; --accent-soft:#dcefe9; --accent2:#c9772b; --accent2-soft:#f6e6d4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121615; --surface:#1b2120; --ink:#e9ede9; --muted:#9aa7a2; --line:#2b3331;
+    --accent:#4fc2a8; --accent-soft:#1d3a33; --accent2:#e8a15e; --accent2-soft:#3a2b1d;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121615; --surface:#1b2120; --ink:#e9ede9; --muted:#9aa7a2; --line:#2b3331;
+  --accent:#4fc2a8; --accent-soft:#1d3a33; --accent2:#e8a15e; --accent2-soft:#3a2b1d;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 16px 48px}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.15;margin:0}
+h2{font-size:1.25rem;margin-bottom:14px}
+header.hero{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-bottom:28px}
+.avatar{width:96px;height:96px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;
+  font:700 2rem Fraunces,serif;overflow:hidden;flex:none}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.hero h1{font-size:clamp(1.6rem,4vw,2.3rem)}
+.hero p{margin:4px 0;color:var(--muted)}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.links a{font-size:.85rem;text-decoration:none;padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink)}
+.links a:hover{border-color:var(--accent);color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.kpi .n{font:700 2.2rem Fraunces,serif;color:var(--accent)}
+.kpi .l{color:var(--muted);font-size:.85rem}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:16px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.chart{display:flex;align-items:flex-end;gap:10px;height:190px;padding-top:10px;border-bottom:1px solid var(--line)}
+.col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.stack{width:100%;max-width:38px;display:flex;flex-direction:column-reverse;border-radius:6px 6px 0 0;overflow:hidden}
+.seg-j{background:var(--accent)} .seg-c{background:var(--accent2)}
+.col .v{font-size:.75rem;color:var(--muted);margin-bottom:4px}
+.xlab{display:flex;gap:10px;margin-top:6px}
+.xlab span{flex:1;text-align:center;font-size:.75rem;color:var(--muted)}
+.legend{display:flex;gap:16px;font-size:.8rem;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.topic{margin-bottom:12px}
+.topic .row{display:flex;justify-content:space-between;font-size:.88rem}
+.bar{height:8px;background:var(--accent-soft);border-radius:999px;margin-top:4px}
+.bar b{display:block;height:100%;background:var(--accent);border-radius:999px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tools button{font:inherit;font-size:.85rem;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.tools button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tools input{flex:1;min-width:180px;font:inherit;font-size:.9rem;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.pub{padding:12px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:52px 1fr;gap:12px}
+.pub:first-child{border-top:0}
+.pub .y{font-weight:600;color:var(--muted)}
+.pub .t{font-weight:600}
+.pub .m{font-size:.85rem;color:var(--muted)}
+.tag{display:inline-block;font-size:.72rem;padding:1px 8px;border-radius:999px;margin:4px 4px 0 0}
+.tag.j{background:var(--accent-soft);color:var(--accent)} .tag.c{background:var(--accent2-soft);color:var(--accent2)}
+.tag.k{border:1px solid var(--line);color:var(--muted)}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 14px 20px;border-left:2px solid var(--line);margin-left:6px}
+.tl li::before{content:"";position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.tl .y{font-size:.8rem;color:var(--muted)}
+.tl .t{font-weight:600}
+.tl .m{font-size:.85rem;color:var(--muted)}
+section{margin-bottom:16px}
+footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:28px}
+.empty{color:var(--muted);font-size:.9rem;padding:10px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="avatar" id="avatar">AB</div>
+  <div>
+    <h1>Anugrayani Bustamin, ST., MT</h1>
+    <p>Assistant Professor · Informatics Study Program, Faculty of Engineering, Universitas Hasanuddin</p>
+    <p>NLP · Sentiment Analysis · Speech &amp; Audio · Assistive Technology · Health Informatics</p>
+    <div class="links">
+      <a href="mailto:anugrayani@unhas.ac.id">✉ anugrayani@unhas.ac.id</a>
+      <a href="https://orcid.org/0000-0001-7811-0507" target="_blank" rel="noopener">ORCID 0000-0001-7811-0507</a>
+    </div>
+  </div>
+</header>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="grid2">
+  <div class="card">
+    <h2>Publications per year</h2>
+    <div class="chart" id="chart"></div>
+    <div class="xlab" id="xlab"></div>
+    <div class="legend"><span><i class="seg-j"></i>Journal</span><span><i class="seg-c"></i>Conference</span></div>
+  </div>
+  <div class="card">
+    <h2>Research focus</h2>
+    <div id="topics"></div>
+  </div>
+</div>
+
+<section class="card">
+  <h2>Publications</h2>
+  <div class="tools">
+    <button data-f="all" class="on">All</button>
+    <button data-f="Journal">Journal</button>
+    <button data-f="Conference">Conference</button>
+    <input id="q" type="search" placeholder="Search title, venue, co-author…">
+  </div>
+  <div id="pubs"></div>
+</section>
+
+<div class="grid2">
+  <section class="card">
+    <h2>Research projects</h2>
+    <ul class="tl" id="projects"></ul>
+  </section>
+  <section class="card">
+    <h2>Experience</h2>
+    <ul class="tl" id="exp"></ul>
+    <h2 style="margin-top:10px">Education</h2>
+    <ul class="tl" id="edu"></ul>
+  </section>
+</div>
+
+<section class="card">
+  <h2>Certifications &amp; training</h2>
+  <ul class="tl" id="cert"></ul>
+</section>
+
+<footer>Last updated October 2026</footer>
+</div>
+
+<script>
+// Replace "photo.jpg" with your photo file in the repo; initials show if it's missing.
+(function(){
+  var img=new Image(); img.alt="Anugrayani Bustamin";
+  img.onload=function(){var a=document.getElementById('avatar');a.textContent='';a.appendChild(img);};
+  img.src="photo.jpg";
+})();
+
+const pubs=[
+ {y:2025,type:"Conference",topics:["NLP","Health Informatics"],title:"Predicting Hospital Readmissions Using XLNet-BiGRU-Attention on Patient Clinical Notes",authors:"A. Bustamin, A. Darwis, I. Nurtanio, T.P.M. Wardhani, I.S. Areni, A. Nurdin",venue:"8th International Women in Data Science Conference at Prince Sultan University (WiDS PSU)"},
+ {y:2025,type:"Journal",topics:["Data Mining"],title:"Comparison of Conventional Clustering and Clustering with K-Means Sub-Cluster in Tourist Visitor Segmentation",authors:"E. Warni, A. Bustamin, A. Prayogi, W.D. Wasistha, M. Zarrar",venue:"Advances in Electrical and Computer Technologies, pp. 280–286"},
+ {y:2025,type:"Journal",topics:["NLP"],title:"Text Normalization for Indonesian Slang Words in Sentiment Analysis Development",authors:"A. Bustamin, A. Ais Prayogi, D. Siswanto, M. Rafrin, A. Nurdin",venue:"ICIC Express Letters Part B: Applications, 16(2)",doi:"10.24507/icicelb.16.02.121"},
+ {y:2024,type:"Journal",topics:["Speech & Audio","NLP"],title:"IndoWaveSentiment: Indonesian Audio Dataset for Emotion Classification",authors:"A. Bustamin, A.M. Rizky, E. Warni, I.S. Areni, Indrabayu",venue:"Data in Brief, Vol. 57",doi:"10.1016/j.dib.2024.111138"},
+ {y:2024,type:"Journal",topics:["Health Informatics"],title:"Stunting Superapp: A One-Stop App as an Effort Toward Stunting Management in Indonesia — Delphi and Pilot Study",authors:"K.A. Erika, N.F. Nur Fadilah, A.I. Latif, N. Hasbiah, A.J.A. Baso, H. Achmad, A. Bustamin",venue:"JMIR Human Factors"},
+ {y:2023,type:"Journal",topics:["NLP"],title:"Customer Satisfaction Assessment System on E-commerce Product Purchase Transactions Using Sentiment Analysis",authors:"A.A. Ilham, A. Bustamin, E. Wahyudiarto",venue:"International Journal on Advanced Science, Engineering & Information Technology, 13(3)"},
+ {y:2022,type:"Conference",topics:["NLP"],title:"Development of Sentiment Analysis and Sarcasm Detection Systems for Social Network Users",authors:"A.A. Ilham, A. Bustamin, A. Ais Prayogi, Safina, A.R. Rahmika",venue:"AIP Conference Proceedings"},
+ {y:2022,type:"Journal",topics:["Assistive Tech & Vision"],title:"Multi-Object Detection Using Single Shot Multibox Detector MobileNet for People with Visual Impairments",authors:"Indrabayu, I.S. Areni, A. Bustamin, N.L. Jamaluddin, Yuliani",venue:"Engineering Letters, 30(1), pp. 276–283 · Scimago Q2"},
+ {y:2022,type:"Journal",topics:["Assistive Tech & Vision"],title:"Real-time Face Recognition System as Personal Assistant for People with Blindness",authors:"Indrabayu, I.S. Areni, A. Bustamin, V. Aza",venue:"ICIC Express Letters Part B: Applications, 13(2) · Scimago Q3"},
+ {y:2021,type:"Conference",topics:["Spatial & Climate Data"],title:"Spatial Analytics of Rain Events Through Climatology Parameters",authors:"A. Bustamin, Indrabayu, A.A. Ilham, R. Irianty, L. Qadri, M. Rahmat",venue:"5th EPI International Conference on Science and Engineering (EICSE), Makassar"},
+ {y:2020,type:"Journal",topics:["Spatial & Climate Data"],title:"A Prototype of Low-Cost Weather Station for Spatial and Temporal Data Analysis",authors:"Indrabayu, S. Pallu, A. Achmad, I.S. Areni, A. Bustamin",venue:"ICIC Express Letters, 14(11) · Scimago Q4"},
+ {y:2020,type:"Conference",topics:["Data Mining","NLP"],title:"Implementation of Clustering and Similarity Analysis for Detecting Content Similarity in Student Final Projects",authors:"A.A. Ilham, A. Bustamin, I. Aswad, F. Armin",venue:"IOP Conference Series: Materials Science and Engineering, 875(1), 012039"},
+ {y:2019,type:"Journal",topics:["Speech & Audio"],title:"Speech to Text in Indonesian Personal Assistant",authors:"I.S. Areni, A.D. Mufida, Indrabayu, S. Wahyuni, I. Nurtanio, I. Rachmaniar, A. Bustamin",venue:"Journal of Computer Science · Scimago Q4"},
+ {y:2017,type:"Journal",topics:["Speech & Audio"],title:"Improvement in Speech to Text for Bahasa Indonesia Through Homophone Impairment Training",authors:"I.S. Areni, Indrabayu, A. Bustamin",venue:"Journal of Computers (Taiwan) · Scimago Q4"}
+];
+const projects=[
+ {y:"2025",t:"Digital Shores: Empowering Coastal Communities through Commons",m:"Department of Foreign Affairs and Trade (DFAT), Australia"},
+ {y:"2024",t:"Sehati Stunting Superapp: Monitoring and Prevention of Stunting in Indonesia",m:"Ministry of Higher Education, Science and Technology"},
+ {y:"2024",t:"A New Approach to Dynamic Sign Language Translation Using GRU for the Deaf",m:"Lab-based Education, Faculty of Engineering, Universitas Hasanuddin"},
+ {y:"2024",t:"Audio Corpus Development for Emotion Recognition in Advanced Sentiment Analysis",m:"Junior Lecturer Research Fund, LPPM Universitas Hasanuddin"},
+ {y:"2023",t:"Health Literacy and SRH Information-Seeking Behaviour in Adolescent Girls with Sensory Disabilities",m:"LPPM Universitas Hasanuddin"},
+ {y:"2022",t:"Digital Health Inclusion: Supporting Access to Healthcare for PwD",m:"Partnership for Australia-Indonesia Research Program"},
+ {y:"2019–2021",t:"Visual Impairment Support System as Part of Smart People Systems in the Digital Era",m:"Ministry of Education and Culture, PDUPT Grant (USD 16,700)"}
+];
+const exp=[
+ {y:"2024",t:"External Assessor of Electronic Government System",m:"Ministry of State Apparatus Empowerment and Bureaucratic Reform"},
+ {y:"2023–present",t:"International Class Manager",m:"Informatics Study Program, Universitas Hasanuddin"},
+ {y:"2018–present",t:"Assistant Professor",m:"Faculty of Engineering, Universitas Hasanuddin — IT Fundamentals, AI, NLP, Data Analysis"},
+ {y:"2014–2016",t:"Data Analyst",m:"Bank Sulselbar, Makassar"}
+];
+const edu=[
+ {y:"2016",t:"Master's in Electrical Engineering",m:"Universitas Hasanuddin"},
+ {y:"2009",t:"Bachelor's in Informatics",m:"Universitas Hasanuddin"}
+];
+const cert=[
+ {y:"2025",t:"Australia Awards Short Course — Enhancing AI Development and Innovation: Policy and Practice",m:""},
+ {y:"2023",t:"Pre-doctoral Bridging Course Programme, University of Warwick (UK)",m:"Funded by LPDP and Ministry of Education, Culture, Research and Technology"},
+ {y:"2022",t:"Training of Trainers, Talented Academy — AI introduction instructor for teachers",m:"Ministry of Communication and Information, Indonesia"},
+ {y:"2022",t:"English Proficiency (IELTS)",m:""},
+ {y:"2021",t:"Microsoft Certified: Azure AI Fundamentals",m:"Microsoft / Certiport"}
+];
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// KPIs
+const nJ=pubs.filter(p=>p.type==="Journal").length, nC=pubs.length-nJ;
+document.getElementById('kpis').innerHTML=[
+ [pubs.length,"Publications"],[nJ,"Journal articles"],[nC,"Conference papers"],[projects.length,"Research projects"]
+].map(([n,l])=>`<div class="card kpi"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+
+// Chart
+const years=[];for(let y=2017;y<=2025;y++)years.push(y);
+const max=Math.max(...years.map(y=>pubs.filter(p=>p.y===y).length));
+document.getElementById('chart').innerHTML=years.map(y=>{
+  const j=pubs.filter(p=>p.y===y&&p.type==="Journal").length, c=pubs.filter(p=>p.y===y&&p.type==="Conference").length;
+  const h=v=>(v/max*150)+"px";
+  return `<div class="col" title="${y}: ${j} journal, ${c} conference"><span class="v">${j+c||""}</span>
+    <div class="stack"><div class="seg-j" style="height:${h(j)}"></div><div class="seg-c" style="height:${h(c)}"></div></div></div>`;
+}).join("");
+document.getElementById('xlab').innerHTML=years.map(y=>`<span>'${String(y).slice(2)}</span>`).join("");
+
+// Topics
+const tc={};pubs.forEach(p=>p.topics.forEach(t=>tc[t]=(tc[t]||0)+1));
+const tmax=Math.max(...Object.values(tc));
+document.getElementById('topics').innerHTML=Object.entries(tc).sort((a,b)=>b[1]-a[1]).map(([t,n])=>
+ `<div class="topic"><div class="row"><span>${t}</span><span>${n}</span></div><div class="bar"><b style="width:${n/tmax*100}%"></b></div></div>`).join("");
+
+// Publications
+let filter="all";
+function renderPubs(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  const list=pubs.filter(p=>(filter==="all"||p.type===filter)&&(!q||(p.title+p.authors+p.venue+p.topics.join()).toLowerCase().includes(q)));
+  document.getElementById('pubs').innerHTML=list.length?list.map(p=>`<div class="pub"><div class="y">${p.y}</div><div>
+    <div class="t">${esc(p.title)}</div>
+    <div class="m">${esc(p.authors)}</div>
+    <div class="m"><em>${esc(p.venue)}</em>${p.doi?` · <a href="https://doi.org/${p.doi}" target="_blank" rel="noopener">DOI</a>`:""}</div>
+    <span class="tag ${p.type==="Journal"?"j":"c"}">${p.type}</span>${p.topics.map(t=>`<span class="tag k">${t}</span>`).join("")}
+  </div></div>`).join(""):`<div class="empty">No publications match.</div>`;
+}
+document.querySelectorAll('.tools button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tools button').forEach(x=>x.classList.remove('on'));b.classList.add('on');filter=b.dataset.f;renderPubs();
+});
+document.getElementById('q').oninput=renderPubs;
+renderPubs();
+
+// Timelines
+const tl=(id,arr)=>document.getElementById(id).innerHTML=arr.map(e=>
+ `<li><div class="y">${e.y}</div><div class="t">${esc(e.t)}</div>${e.m?`<div class="m">${esc(e.m)}</div>`:""}</li>`).join("");
+tl('projects',projects);tl('exp',exp);tl('edu',edu);tl('cert',cert);
+</script>
+</body>
+</html>
